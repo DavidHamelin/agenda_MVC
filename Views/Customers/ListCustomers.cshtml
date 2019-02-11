@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Agenda.Models.customers>
+@{
+    ViewBag.Title = "ListCustomers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ListCustomers</h2>
+
+<table class="table table-responsive">
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Adresse Mail</th>
+        <th>Numéro de Téléphone</th>
+        <th>Budget</th>
+        <th>Subject</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td> @Html.DisplayFor(modelItem => item.lastname) </td>
+            <td> @Html.DisplayFor(modelItem => item.firstname) </td>
+            <td> @Html.DisplayFor(modelItem => item.mail) </td>
+            <td> @Html.DisplayFor(modelItem => item.phoneNumber) </td>
+            <td> @Html.DisplayFor(modelItem => item.budget) </td>
+            <td> @Html.DisplayFor(modelItem => item.subject) </td>
+            <td> @Html.ActionLink("Profil", "profilCustomer", new { id = item.idCustomer }) </td>
+        </tr>}
+</table>
+@Html.ActionLink("Ajouter un Client", "AddCustomer", "Customers", new { area = "" }, new { @class = "btn btn-default" })

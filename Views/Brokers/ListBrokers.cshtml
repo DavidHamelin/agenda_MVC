@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Agenda.Models.brokers>
+    <!-- Permet l'affichage des données de la table brokers dans Model -->
+@{
+    ViewBag.Title = "ListBrokers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Liste des Courtiers</h2>
+
+<table class="table table-responsive">
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Adresse Mail</th>
+        <th>Numéro de Téléphone</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td> @Html.DisplayFor(modelItem => item.lastname) </td>
+        <td> @Html.DisplayFor(modelItem => item.firstname) </td>
+        <td> @Html.DisplayFor(modelItem => item.mail) </td>
+        <td> @Html.DisplayFor(modelItem => item.phoneNumber) </td>
+        <td> @Html.ActionLink("Profil", "profilBroker", new { id = item.idBroker }) </td>
+    </tr>}
+</table>
+@Html.ActionLink("Ajouter un courtier", "AddBroker", "Brokers", new { area = "" }, new { @class = "btn btn-default" })

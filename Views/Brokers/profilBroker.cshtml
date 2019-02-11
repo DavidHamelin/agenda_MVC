@@ -1,0 +1,65 @@
+﻿@model Agenda.Models.brokers
+@{
+    ViewBag.Title = "profilBroker";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Profil du Courtier</h2>
+
+<table class="table table-responsive" id="tableToHide">
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Adresse Mail</th>
+        <th>Numéro de Téléphone</th>
+    </tr>
+    <tr>
+        <td> @Html.DisplayFor(model => model.lastname) </td>
+        <td> @Html.DisplayFor(model => model.firstname) </td>
+        <td> @Html.DisplayFor(model => model.mail) </td>
+        <td> @Html.DisplayFor(model => model.phoneNumber) </td>
+    </tr>
+</table>
+
+
+<form action="#" method="post" id="formToShow" hidden>
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.idBroker)
+    <table class="table table-responsive">
+        <caption>Modifier le Courtier</caption>
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Adresse Mail</th>
+                <th scope="col">Numéro de Téléphone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <input type="text" class="form-control" name="lastname" id="lastname" value="@Model.lastname" required/>
+                    @Html.ValidationMessageFor(model => model.lastname, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="firstname" id="firstname" value="@Model.firstname" required/>
+                    @Html.ValidationMessageFor(model => model.firstname, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    <input type="email" class="form-control" name="mail" id="mail" value="@Model.mail" required/>
+                    @Html.ValidationMessageFor(model => model.mail, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    <input type="tel" class="form-control" name="phoneNumber" id="phoneNumber" value="@Model.phoneNumber" required/>
+                    @Html.ValidationMessageFor(model => model.phoneNumber, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-primary" type="submit" name="submit" id="submit">Enregistrer</button>
+    <button class="btn btn-danger" type="button" id="profilClick">Annuler modification</button>
+</form>
+
+<button class="btn btn-default" type="button" id="buttonClick">Modifier</button>
+
+@Html.ActionLink("Retour à la liste", "ListBrokers", "Brokers", new { area = "" }, new { @class = "btn btn-default" })

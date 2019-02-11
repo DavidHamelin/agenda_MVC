@@ -1,0 +1,37 @@
+﻿@model Agenda.Models.brokers 
+@* lien pour que "model" de validationMessage fonctionne *@
+
+@{
+    ViewBag.Title = "AddBroker";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ajouter un courtier</h2>
+
+<form method="POST" action="#" name="addBroker" id="addBroker">
+    <div class="form-horizontal center-block">
+        <div class="form-group">
+            <label for="lastname" class="control-label">Nom : </label>
+            <input class="form-control" type="text" id="lastname" name="lastname" value="" placeholder="Nom" required />
+            @Html.ValidationMessageFor(model => model.lastname, "", new { @class = "text-danger" }) @*message d'erreur en rouge sous input *@
+        </div>
+        <div class="form-group">
+            <label for="firstname" class="control-label">Prénom : </label>
+            <input class="form-control" type="text" id="firstname" name="firstname" value="" placeholder="Prénom" required />
+            @Html.ValidationMessageFor(model => model.firstname, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label for="mail" class="control-label">Mail : </label>
+            <input class="form-control" type="email" id="mail" name="mail" value="" placeholder="Mail" required />
+            @Html.ValidationMessageFor(model => model.mail, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber" class="control-label">Téléphone : </label>
+            <input class="form-control" type="text" id="phoneNumber" name="phoneNumber" value="" placeholder="Téléphone" required />
+            @Html.ValidationMessageFor(model => model.phoneNumber, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default" type="submit" id="submit" name="submit">Enregistrer</button>
+        </div>
+    </div>
+</form>

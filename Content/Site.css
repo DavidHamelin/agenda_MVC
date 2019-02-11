@@ -1,0 +1,79 @@
+﻿/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Corps */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: linear-gradient(to right, lightblue, white);
+}
+/*header 
+{
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+}*/
+header h2
+{
+    font-size: 4em;
+    transition: color, font-size, 2s;
+}
+header h2:hover 
+{
+    color: white;
+    font-size: 6em;
+}
+
+/* Design des Formulaires */
+form {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+/* Date d'aujourd'hui dans l'index */
+#todayDate {
+    font-family: 'Lucida Console';
+    font-weight: bold;
+    font-size: 2em;
+}
+
+img
+{
+    float: right;
+}
+@media all and (max-width: 800px) 
+{
+    img
+    {
+        display: none;
+    }
+}
+
+

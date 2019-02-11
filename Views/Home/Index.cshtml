@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<img src="https://i.imgur.com/tVBUlIw.gif" alt="café" title="Bonne journée !"/>
+<div id="homeBlockPage">
+    <header>
+        <h2>Agenda</h2>
+    </header>
+
+    <section>
+        <article id="welcome">
+            <h3>Bienvenue sur votre agenda</h3>
+            <p>Gérez simplement vos rendez-vous.</p>
+            <p>Nous sommes le : <span id="todayDate">@DateTime.Now.Day/@DateTime.Now.Month/@DateTime.Now.Year</span></p>
+        </article>
+    </section>
+</div>
