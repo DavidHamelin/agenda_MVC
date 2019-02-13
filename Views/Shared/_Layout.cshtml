@@ -21,17 +21,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Ajouter un Courtier", "AddBroker", "Brokers", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Liste des Courtiers", "ListBrokers", "Brokers", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Ajouter un Client", "AddCustomer", "Customers", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("+ Courtier", "AddBroker", "Brokers", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Liste des Clients", "ListCustomers", "Customers", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("+ Client", "AddCustomer", "Customers", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("+ RDV", "AddAppointement", "Appointements", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
-
             </div>
         </div>
     </div>
 
-    <div class="container body-content">
+    <div class="container-fluid body-content">
         @RenderBody() @*Contenu des pages apparait ici*@
         
         <footer class="navbar-fixed-bottom">

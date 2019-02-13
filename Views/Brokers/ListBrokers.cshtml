@@ -7,12 +7,13 @@
 
 <h2>Liste des Courtiers</h2>
 
-<table class="table table-responsive">
+<table class="table tabBroker">
     <tr>
         <th>Nom</th>
         <th>Prénom</th>
         <th>Adresse Mail</th>
         <th>Numéro de Téléphone</th>
+        <th></th>
     </tr>
     @foreach (var item in Model)
     {
@@ -21,7 +22,7 @@
         <td> @Html.DisplayFor(modelItem => item.firstname) </td>
         <td> @Html.DisplayFor(modelItem => item.mail) </td>
         <td> @Html.DisplayFor(modelItem => item.phoneNumber) </td>
-        <td> @Html.ActionLink("Profil", "profilBroker", new { id = item.idBroker }) </td>
+        <td> @Html.ActionLink("Profil", "profilBroker", new { id = item.idBroker }, new { @class = "btn btn-default" }) </td>
     </tr>}
 </table>
-@Html.ActionLink("Ajouter un courtier", "AddBroker", "Brokers", new { area = "" }, new { @class = "btn btn-default" })
+@Html.ActionLink("Ajouter un Courtier", "AddBroker", "Brokers", new { area = "" }, new { @class = "btn btn-default" })

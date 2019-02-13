@@ -6,7 +6,7 @@
 
 <h2>Profil du Client</h2>
 
-<table class="table table-responsive" id="tableToHide">
+<table class="table tabCustomer" id="tableToHide">
     <tr>
         <th>Nom</th>
         <th>Prénom</th>
@@ -29,8 +29,8 @@
 <form action="#" method="post" id="formToShow" hidden>
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.idCustomer)
-    <table class="table table-responsive">
-        <caption>Modifier le Client</caption>
+    <table class="table tabCustomer">
+        <caption class="h3">Modifier le Client</caption>
         <thead>
             <tr>
                 <th scope="col">Nom</th>
@@ -60,7 +60,7 @@
                     @Html.ValidationMessageFor(model => model.phoneNumber, "", new { @class = "text-danger" })
                 </td>
                 <td>
-                    <input type="number" step="50" class="form-control" name="budget" id="budget" value="@Model.budget" required />
+                    <input type="number" min="0" step="50" class="form-control" name="budget" id="budget" value="@Model.budget" required />
                     @*@Html.ValidationMessageFor(model => model.budget, "", new { @class = "text-danger" })*@
                 </td>
                 <td>

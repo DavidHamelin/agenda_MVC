@@ -227,5 +227,41 @@ namespace Agenda.Controllers
                 return View(customerToEdit); //réaffichage du formulaire
             }
         }
+        // GET: Delete
+        //public ActionResult ListCustomers(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    customers customersupp = db.customers.Find(id);
+        //    if (customersupp == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(customersupp);
+        //}
+        // POST: Delete
+        //[HttpPost, ActionName("ListCustomers")]
+        //[ValidateAntiForgeryToken]
+        public ActionResult DeleteCustomerConfirm(int id)
+        {
+            customers customerDel = db.customers.Find(id);
+            db.customers.Remove(customerDel);
+            db.SaveChanges();
+            return View("SuccessDeleteCustomer");
+        }
+        public ActionResult SuccessDeleteCustomer()
+        {
+            return View("SuccessDeleteCustomer");
+        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

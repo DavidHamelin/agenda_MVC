@@ -11,4 +11,14 @@
         $('#profilClick').hide()
         $('#buttonClick').show();
     });
+    $('#rdvShow').click(function () {
+        $('#rdvToShow').show();
+        $('#rdvHide').show(); 
+    });
+    $('#rdvHide').click(function () {
+        $('#rdvToShow').hide();
+        $('#rdvShow').show();
+        $('#rdvHide').hide();
+    });
+
 });

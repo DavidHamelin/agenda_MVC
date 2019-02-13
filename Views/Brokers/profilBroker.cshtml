@@ -6,7 +6,7 @@
 
 <h2>Profil du Courtier</h2>
 
-<table class="table table-responsive" id="tableToHide">
+<table class="table tabBroker" id="tableToHide">
     <tr>
         <th>Nom</th>
         <th>Prénom</th>
@@ -15,6 +15,7 @@
     </tr>
     <tr>
         <td> @Html.DisplayFor(model => model.lastname) </td>
+        <!--value="Html.Display("lastname")"-->
         <td> @Html.DisplayFor(model => model.firstname) </td>
         <td> @Html.DisplayFor(model => model.mail) </td>
         <td> @Html.DisplayFor(model => model.phoneNumber) </td>
@@ -25,8 +26,8 @@
 <form action="#" method="post" id="formToShow" hidden>
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.idBroker)
-    <table class="table table-responsive">
-        <caption>Modifier le Courtier</caption>
+    <table class="table tabBroker">
+        <caption class="h3">Modifier le Courtier</caption>
         <thead>
             <tr>
                 <th scope="col">Nom</th>

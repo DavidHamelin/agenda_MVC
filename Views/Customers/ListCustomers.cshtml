@@ -4,9 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ListCustomers</h2>
+<h2>Liste des Clients</h2>
 
-<table class="table table-responsive">
+<table class="table tabCustomer">
     <tr>
         <th>Nom</th>
         <th>Prénom</th>
@@ -14,6 +14,8 @@
         <th>Numéro de Téléphone</th>
         <th>Budget</th>
         <th>Subject</th>
+        <th></th>
+        <th></th>
     </tr>
     @foreach (var item in Model)
     {
@@ -24,7 +26,41 @@
             <td> @Html.DisplayFor(modelItem => item.phoneNumber) </td>
             <td> @Html.DisplayFor(modelItem => item.budget) </td>
             <td> @Html.DisplayFor(modelItem => item.subject) </td>
-            <td> @Html.ActionLink("Profil", "profilCustomer", new { id = item.idCustomer }) </td>
+            <td> @Html.ActionLink("Profil", "profilCustomer", new { id = item.idCustomer }, new { @class = "btn btn-default" }) </td>
+            <td>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@item.idCustomer">
+                    X
+                </button>
+            </td>
         </tr>}
+    @*@Html.ActionLink("X", "DeleteCustomerConfirm", new { id = item.idCustomer }, new { @class = "btn btn-danger" })*@
+
+    <!-- Button trigger modal -->
+    @*<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal">
+            X
+        </button>*@
 </table>
-@Html.ActionLink("Ajouter un Client", "AddCustomer", "Customers", new { area = "" }, new { @class = "btn btn-default" })
+<!-- Modal -->
+@foreach (var item in Model)
+{
+    <div class="modal fade" id="@item.idCustomer" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                        <h3 class="modal-title">Supprimer un client</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <div class="modal-body text-danger h4">
+                    ATTENTION !<br />
+                    Êtes-vous sûr(e) de vouloir supprimer définitivement ce client ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    @Html.ActionLink("Supprimer", "DeleteCustomerConfirm", new { id = item.idCustomer })
+                </div>
+            </div>
+        </div>
+    </div>}
+    @Html.ActionLink("Ajouter un Client", "AddCustomer", "Customers", new { area = "" }, new { @class = "btn btn-default" })

@@ -134,6 +134,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AppointementsController.cs" />
     <Compile Include="Controllers\BrokersController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -228,6 +229,9 @@
     <Content Include="Views\Customers\ListCustomers.cshtml" />
     <Content Include="Views\Customers\SuccessAddCustomer.cshtml" />
     <Content Include="Views\Customers\profilCustomer.cshtml" />
+    <Content Include="Views\Customers\SuccessDeleteCustomer.cshtml" />
+    <Content Include="Views\Appointements\AddAppointement.cshtml" />
+    <Content Include="Views\Appointements\SuccessAddAppointement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

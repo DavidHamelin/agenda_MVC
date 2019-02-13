@@ -13,8 +13,10 @@ namespace Agenda.Controllers
     public class BrokersController : Controller
     {
         private agendaEntities db = new agendaEntities();
+        string regexName = @"^[A-Za-zéèàêâôûùïüç\-]+$";
+        string regexMail = @"[0-9a-zA-Z\.\-]+@[0-9a-zA-Z\.\-]+.[a-zA-Z]{2,4}";
+        string regexPhone = @"^[0][0-9]{9}";
         // GET: Brokers
-        
         public ActionResult AddBroker()
         {
             return View("AddBroker");
@@ -22,9 +24,6 @@ namespace Agenda.Controllers
         [HttpPost]
         public ActionResult AddBroker([Bind(Include = "idBroker,lastname,firstname,mail,phoneNumber")] brokers brokerToAdd)
         {
-            string regexName = @"^[A-Za-zéèàêâôûùïüç\-]+$";
-            string regexMail = @"[0-9a-zA-Z\.\-]+@[0-9a-zA-Z\.\-]+.[a-zA-Z]{2,4}";
-            string regexPhone = @"^[0][0-9]{9}";
             // vérification que le champ lastname n'est pas null ou vide
             if (!String.IsNullOrEmpty(brokerToAdd.lastname))
             {
@@ -95,31 +94,23 @@ namespace Agenda.Controllers
         {
             return View("SuccessAddBroker");
         }
-        //public ActionResult ListBrokers()
-        //{
-        //    return View("ListBrokers");
-        //}
+        
         public ActionResult ListBrokers()
         {
             return View(db.brokers.ToList());
         }
-        public ActionResult profilBroker(int? id)
+        public ActionResult profilBroker(int? id) // ? : entier nullable
         {
-            brokers brokers = db.brokers.Find(id);
-            if (brokers == null)
+            brokers brokerById = db.brokers.Find(id);
+            if (brokerById == null)
             {
                 return HttpNotFound();
             }
-            return View(brokers);
+            return View(brokerById);
         }
-
         [HttpPost]
         public ActionResult profilBroker([Bind(Include = "idBroker,lastname,firstname,mail,phoneNumber")] brokers brokerToEdit)
         {
-            string regexName = @"^[A-Za-zéèàêâôûùïüç\-]+$";
-            string regexMail = @"^[0-9a-zA-Z\.\-]+@[0-9a-zA-Z\.\-]+.[a-zA-Z]{2,4}";
-            string regexPhone = @"^[0][0-9]{9}";
-
             // vérification que le champ lastname n'est pas null ou vide
             if (!String.IsNullOrEmpty(brokerToEdit.lastname))
             {
