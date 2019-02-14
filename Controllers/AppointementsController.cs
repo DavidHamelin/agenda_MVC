@@ -13,6 +13,9 @@ namespace Agenda.Controllers
     public class AppointementsController : Controller
     {
         private agendaEntities db = new agendaEntities();
+        string regexName = @"^[A-Za-zéèàêâôûùïüç\-]+$";
+        string regexDateTime = @"[0-9]{1,2}+/[0-9]{1,2}+/[0-9]{4}";
+        string regexPhone = @"^[0][0-9]{9}";
         // GET: Appointements
         public ActionResult AddAppointement()
         {
@@ -45,7 +48,7 @@ namespace Agenda.Controllers
             var appointements = db.appointements.Include(a => a.brokers).Include(a => a.customers);
             if (appointements == null)
             {
-                return View("Index");
+                return View("Error");
             }
             else
             {

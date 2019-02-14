@@ -14,7 +14,7 @@
                 <em class="text-info">Gérez simplement vos rendez-vous.</em>
                 <div id="dateTimeBlock">
                     <p>Nous sommes le : <span id="todayDate" class="text-warning">@DateTime.Now.Day/@DateTime.Now.Month/@DateTime.Now.Year</span></p>
-                    <p>Il est <span id="todayHour" class="text-warning">@(DateTime.Now.TimeOfDay.Hours):@(DateTime.Now.TimeOfDay.Minutes) </span></p>
+                    <p>Il est <span id="todayHour" class="text-warning">@(DateTime.Now.TimeOfDay.Hours) Heures et @(DateTime.Now.TimeOfDay.Minutes) minutes </span></p>
                 </div>
             </article>
             <a href="#rdvToShow"><input id="rdvShow" type="button" class="btn btn-primary" value="Liste des RDV" /></a>
@@ -37,6 +37,7 @@
                 <td> @Html.DisplayFor(modelItem => item.customers.lastname) </td>
                 <td> </td>
             </tr>}*@
+            
         </table>
     </div>
 </div>
