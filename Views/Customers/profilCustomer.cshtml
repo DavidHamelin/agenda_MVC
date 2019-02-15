@@ -61,11 +61,11 @@
                 </td>
                 <td>
                     <input type="number" min="0" step="50" class="form-control" name="budget" id="budget" value="@Model.budget" required />
-                    @*@Html.ValidationMessageFor(model => model.budget, "", new { @class = "text-danger" })*@
+                    @Html.ValidationMessageFor(model => model.budget, "", new { @class = "text-danger" })
                 </td>
                 <td>
                     <input type="text" class="form-control" name="subject" id="subject" value="@Model.subject" required />
-                    @*@Html.ValidationMessageFor(model => model.subject, "", new { @class = "text-danger" })*@
+                    @Html.ValidationMessageFor(model => model.subject, "", new { @class = "text-danger" })
                 </td>
             </tr>
         </tbody>

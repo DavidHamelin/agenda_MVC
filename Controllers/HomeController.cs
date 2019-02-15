@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Agenda.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Agenda.Controllers
 {
@@ -11,6 +13,7 @@ namespace Agenda.Controllers
         public ActionResult Index()
         {
             return View();
+            //return RedirectToAction("ListAppointements", "Appointements");
         }
 
         public ActionResult About()

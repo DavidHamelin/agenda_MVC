@@ -17,6 +17,7 @@
         <th></th>
         <th></th>
     </tr>
+    
     @foreach (var item in Model)
     {
         <tr>
@@ -33,12 +34,7 @@
                 </button>
             </td>
         </tr>}
-    @*@Html.ActionLink("X", "DeleteCustomerConfirm", new { id = item.idCustomer }, new { @class = "btn btn-danger" })*@
-
-    <!-- Button trigger modal -->
-    @*<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal">
-            X
-        </button>*@
+    
 </table>
 <!-- Modal -->
 @foreach (var item in Model)

@@ -13,9 +13,8 @@ namespace Agenda.Controllers
     public class AppointementsController : Controller
     {
         private agendaEntities db = new agendaEntities();
-        string regexName = @"^[A-Za-zéèàêâôûùïüç\-]+$";
-        string regexDateTime = @"[0-9]{1,2}+/[0-9]{1,2}+/[0-9]{4}";
-        string regexPhone = @"^[0][0-9]{9}";
+        //private DateTime regexDateTime = @"^([0-9]{2})+[\/-]([0-9]{2})+[-\/]([0-9]{1,4})$";
+
         // GET: Appointements
         public ActionResult AddAppointement()
         {
@@ -27,6 +26,11 @@ namespace Agenda.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddAppointement([Bind(Include = "idAppointement,dateHour,idBroker,idCustomer")] appointements rdvToAdd)
         {
+            ////vérification que le champ datehour n'est pas null
+            if (rdvToAdd.dateHour == null)
+            {
+                ModelState.AddModelError("dateHour", "Ecrire une date");
+            }
             if (ModelState.IsValid)
             {
                 db.appointements.Add(rdvToAdd); // insertion dans la bdd avec .Add
@@ -42,24 +46,21 @@ namespace Agenda.Controllers
         {
             return View("SuccessAddAppointement");
         }
+        // VUE PARTIELLE A ESSAYER
         // Liste des RDV
-        public ActionResult ListAppointements()
-        {
-            var appointements = db.appointements.Include(a => a.brokers).Include(a => a.customers);
-            if (appointements == null)
-            {
-                return View("Error");
-            }
-            else
-            {
-                return View(appointements.ToList());
-            }
-        }
         //public ActionResult ListAppointements()
         //{
-        //    return View(db.appointements.ToList());
+        //    var appointements = db.appointements.Include(a => a.brokers).Include(a => a.customers);
+        //    if (appointements != null)
+        //    {
+        //        return View(appointements.ToList());
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError("appointements", "Aucun rendez-vous n'a été ajouté");
+        //        return View("Error");
+        //    }
         //}
-
         //public ActionResult DeleteRDVConfirm(int id)
         //{
         //    appointements rdv = db.appointements.Find(id);
