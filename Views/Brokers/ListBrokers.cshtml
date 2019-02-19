@@ -14,6 +14,7 @@
         <th>Adresse Mail</th>
         <th>Numéro de Téléphone</th>
         <th></th>
+        <th></th>
     </tr>
     @foreach (var item in Model)
     {
@@ -23,6 +24,7 @@
         <td> @Html.DisplayFor(modelItem => item.mail) </td>
         <td> @Html.DisplayFor(modelItem => item.phoneNumber) </td>
         <td> @Html.ActionLink("Profil", "profilBroker", new { id = item.idBroker }, new { @class = "btn btn-default" }) </td>
+        <td> @Html.ActionLink("+ RDV", "AddAppointement", "Appointements", new { id = item.idBroker }, new { @class = "btn btn-default" }) </td>
     </tr>}
 </table>
 @Html.ActionLink("Ajouter un Courtier", "AddBroker", "Brokers", new { area = "" }, new { @class = "btn btn-default" })

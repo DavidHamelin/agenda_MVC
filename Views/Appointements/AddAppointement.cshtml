@@ -1,5 +1,6 @@
 ﻿@model Agenda.Models.appointements
 
+
 @{
     ViewBag.Title = "AddAppointement";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,30 +11,29 @@
 <form method="POST" action="#" name="addAppointement" id="addAppointement">
     @Html.AntiForgeryToken()
     <div class="form-horizontals">
-
-        <div class="form-group">
+        @*<div class="form-group">
             <label for="dateTime" class="control-label">Date et Heure du RDV : </label>
             @Html.TextBoxFor(m => m.dateHour, new { @class = "datefield form-control", placeholder = "Date/Heure du rdv", type = "datetime", required = "required" })
-            @*@Html.Editor("dateHour", new { @type = "datetime", @class = "datefield form-control", @placeholder = "Entrez une date de rdv" @required = "required" })*@
             @Html.ValidationMessageFor(model => model.dateHour, "", new { @class = "text-danger" })
-        </div>
-        @*<div class="form-group">
-            <label for="dateRdv">Votre date de rdv</label>
-            <input type="date" id="dateRdv" name="dateRdv">
+        </div>*@
+        <div class="form-group">
+            <label for="dateRdv">Votre date de RdV : </label>
+            <input type="date" min="2019-02-19" id="dateRdv" name="dateRdv" required />
         </div>
         <div class="form-group">
-            <label for="hourRdv">Votre heure de rdv</label>
-            <input type="time" id="hourRdv" name="hourRdv">
-        </div>*@ 
+            <label for="hourRdv">Votre heure de RdV :</label>
+            <input type="time" min="08:00" max="20:00" id="hourRdv" name="hourRdv" required />
+        </div>
+        @Html.ValidationMessageFor(model => model.dateHour, "", new { @class = "text-danger" })
         <div class="form-group">
             <label for="chooseABroker" class="control-label">Courtier : </label>
             @Html.DropDownList("idBroker", null, htmlAttributes: new { @class = "form-control" })
-
+            @*@Html.ValidationMessageFor(model => model.idBroker, "", new { @class = "text-danger" })*@
         </div>
         <div class="form-group">
             <label for="chooseACustomer" class="control-label">Client : </label>
             @Html.DropDownList("idCustomer", null, htmlAttributes: new { @class = "form-control" })
-
+            @*@Html.ValidationMessageFor(model => model.idCustomer, "", new { @class = "text-danger" })*@
         </div>
         <div class="form-group">
             <button class="btn btn-default" type="submit" id="submit" name="submit">Enregistrer</button>

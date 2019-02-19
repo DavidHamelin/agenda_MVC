@@ -3,9 +3,8 @@
     ViewBag.Title = "SuccessAddAppointement";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*<meta http-equiv="refresh" content="2;URL=Index">*@
+<meta http-equiv="refresh" content="2;URL=../Home/Index">
 
 <h2 class="text-center text-success">RDV : Opération réalisée avec succès !</h2>
 
-@*@Html.ActionLink("Retour à la liste", "ListAppointements", "Appointements", new { area = "" }, new { @class = "btn btn-default" })*@
-
+@Html.ActionLink("Retour à la liste", "Index", "Home", new { area = "" }, new { @class = "btn btn-default" })

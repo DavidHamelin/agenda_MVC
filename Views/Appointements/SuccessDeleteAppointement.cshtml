@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "SuccessDeleteAppointement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<meta http-equiv="refresh" content="2; URL=@Url.Action("Index", "Home")">
+
+<h2 class="text-center text-success"> RDV Supprimé !</h2>
+
+@Html.ActionLink("Retour à la liste", "Index", "Home", new { area = "" }, new { @class = "btn btn-default" })

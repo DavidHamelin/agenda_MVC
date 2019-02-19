@@ -7,6 +7,7 @@
 <h2>Ajouter un client</h2>
 
 <form method="POST" action="#" name="addCustomer" id="addCustomer">
+    @Html.AntiForgeryToken()
     <div class="form-horizontal center-block">
         <div class="form-group">
             <label for="lastname" class="control-label">Nom : </label>
@@ -32,7 +33,7 @@
         <div class="form-group">
             <label for="budget" class="control-label">Budget : </label>
             <input class="form-control" type="number" min="0" step="50" id="budget" name="budget" value="" placeholder="Budget" required />
-            
+
         </div>
         <div class="form-group">
             <label for="subject" class="control-label">Sujet : </label>

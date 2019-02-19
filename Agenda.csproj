@@ -232,7 +232,9 @@
     <Content Include="Views\Customers\SuccessDeleteCustomer.cshtml" />
     <Content Include="Views\Appointements\AddAppointement.cshtml" />
     <Content Include="Views\Appointements\SuccessAddAppointement.cshtml" />
-    <Content Include="Views\Appointements\ListAppointements.cshtml" />
+    <Content Include="Views\Home\_listAppointements.cshtml" />
+    <Content Include="Views\Appointements\detailsAppointement.cshtml" />
+    <Content Include="Views\Appointements\SuccessDeleteAppointement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

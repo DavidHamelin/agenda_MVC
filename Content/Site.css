@@ -72,9 +72,12 @@ section
     text-align: left;
     font-size: 1.5em;
 }
-/* Marge button */
+ /*Marge button*/ 
 .btn {
     margin-bottom: 3%;
+}
+.modal .btn {
+    margin-bottom: 0%;
 }
 /* Design liste des rdv */
 #rdvToShow
@@ -125,10 +128,26 @@ form {
     border: 3px dashed white;
     border-radius: 10px;
 }
+/* Barre de recherche */
+#searchBar {
+    flex-direction: row;
+    text-align: left;
+    justify-content: flex-start;
+    align-items: baseline;
+    /*margin-right: 30%;*/
+}
+#searchBar p 
+{
+    margin-right: 1%;
+}
+#searchBar p:first-child
+{
+    display: flex;
+    margin-right: 1%;
+}
 
 /* Pied de page */
-footer p
-{
+footer p {
     text-align: right;
     margin-right: 1%;
 }

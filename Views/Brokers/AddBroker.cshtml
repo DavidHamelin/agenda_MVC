@@ -9,6 +9,7 @@
 <h2>Ajouter un courtier</h2>
 
 <form method="POST" action="#" name="addBroker" id="addBroker">
+    @Html.AntiForgeryToken()
     <div class="form-horizontal center-block">
         <div class="form-group">
             <label for="lastname" class="control-label">Nom : </label>

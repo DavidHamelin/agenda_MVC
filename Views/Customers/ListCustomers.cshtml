@@ -5,7 +5,13 @@
 }
 
 <h2>Liste des Clients</h2>
-
+<form method="get" action="#" id="searchBar" name="searchBar">
+    <p> @Html.TextBox("search") <input type="submit" name="submit" value="Rechercher" /> </p>
+    <p> <label for="searchBar">Trier par :</label> </p>
+    <p> @Html.RadioButton("option", "Name") <text>Nom</text> </p>
+    <p> @Html.RadioButton("option", "FirstName") <text>Prénom</text> </p>
+    <p> @Html.RadioButton("option", "Subject") <text>Sujet</text> </p>
+</form>
 <table class="table tabCustomer">
     <tr>
         <th>Nom</th>
@@ -13,11 +19,11 @@
         <th>Adresse Mail</th>
         <th>Numéro de Téléphone</th>
         <th>Budget</th>
-        <th>Subject</th>
+        <th>Sujet</th>
         <th></th>
         <th></th>
     </tr>
-    
+
     @foreach (var item in Model)
     {
         <tr>
@@ -34,8 +40,8 @@
                 </button>
             </td>
         </tr>}
-    
 </table>
+<!--Autre façon de supprimer avec script : onclick = "return confirm('Etes vous sûr de vouloir supprimer ?')"-->
 <!-- Modal -->
 @foreach (var item in Model)
 {
@@ -43,20 +49,20 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                        <h3 class="modal-title">Supprimer un client</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                    <h3 class="modal-title">Supprimer un client</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
                 <div class="modal-body text-danger h4">
                     ATTENTION !<br />
                     Êtes-vous sûr(e) de vouloir supprimer définitivement ce client ?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                    @Html.ActionLink("Supprimer", "DeleteCustomerConfirm", new { id = item.idCustomer })
+                    @Html.ActionLink("Supprimer", "DeleteCustomerConfirm", new { id = item.idCustomer }, new { @class = "btn btn-danger" })
                 </div>
             </div>
         </div>
     </div>}
-    @Html.ActionLink("Ajouter un Client", "AddCustomer", "Customers", new { area = "" }, new { @class = "btn btn-default" })
+@Html.ActionLink("Ajouter un Client", "AddCustomer", "Customers", new { area = "" }, new { @class = "btn btn-default" })

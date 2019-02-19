@@ -1,0 +1,30 @@
+﻿@model Agenda.Models.appointements
+@{
+    ViewBag.Title = "detailsAppointement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Détails du Rendez-vous</h2>
+
+<table class="table tabRdv">
+    <tr>
+        <th>Date/Heure</th>
+        <th>Courtier</th>
+        <th>Client</th>
+        <th>Mail Client</th>
+        <th>N° tel Client</th>
+        <th>Budget</th>
+        <th>Subject</th>
+    </tr>
+    <tr>
+        <td> @Html.DisplayFor(model => model.dateHour) </td>
+        <td> @Html.DisplayFor(model => model.brokers.firstname) @Html.DisplayFor(model => model.brokers.lastname) </td>
+        <td> @Html.DisplayFor(model => model.customers.firstname) @Html.DisplayFor(model => model.customers.lastname) </td>
+        <td> @Html.DisplayFor(model => model.customers.mail) </td>
+        <td> @Html.DisplayFor(model => model.customers.phoneNumber) </td>
+        <td> @Html.DisplayFor(model => model.customers.budget) </td>
+        <td> @Html.DisplayFor(model => model.customers.subject) </td>
+    </tr>
+
+</table>
+    

@@ -17,28 +17,8 @@
                     <p>Il est <span id="todayHour" class="text-warning">@(DateTime.Now.TimeOfDay.Hours) Heures et @(DateTime.Now.TimeOfDay.Minutes) minutes </span></p>
                 </div>
             </article>
-            @*<a href="#rdvToShow"><input id="rdvShow" type="button" class="btn btn-primary" value="Liste des RDV" /></a>*@
+            <a href="#rdvToShow"><input id="rdvShow" type="button" class="btn btn-primary" value="Liste des RDV" /></a>
         </section>
     </div>
-    @*<div id="rdvToShow" hidden>
-        <button id="rdvHide" type="button" class="btn btn-default" hidden>- Réduire la liste</button>
-        <h2>Liste des RDV</h2>
-        <table class="table">
-            <tr>
-                <th>Date/Heure</th>
-                <th>Client</th>
-                <th>Courtier</th>
-                <th>Subject</th>
-            </tr>
-            @foreach (var item in Model) {
-            <tr>
-                <td> @Html.DisplayFor(modelItem => item.dateHour) </td>
-                <td> @Html.DisplayFor(modelItem => item.brokers.lastname) </td>
-                <td> @Html.DisplayFor(modelItem => item.customers.lastname) </td>
-                <td> </td>
-            </tr>}
-            
-        </table>
-    </div>*@
-    
+    @Html.Partial("~/Views/Home/_listAppointements.cshtml", Model)
 </div>

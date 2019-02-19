@@ -16,7 +16,7 @@ namespace Agenda.Controllers
         string regexName = @"^[A-Za-zéèàêâôûùïüç\-]+$";
         string regexMail = @"[0-9a-zA-Z\.\-]+@[0-9a-zA-Z\.\-]+.[a-zA-Z]{2,4}";
         string regexPhone = @"^[0][0-9]{9}";
-        string regexSubject = @"^[A-Za-zéèêëâäàçîïôö-&.,'\ ]+$";
+        string regexSubject = @"^[A-Za-zéèêëâäàçîïôö&-.,'\ ]+$";
         // GET: Customers
         public ActionResult AddCustomer()
         {
@@ -56,7 +56,7 @@ namespace Agenda.Controllers
             }
             else
             {
-                ModelState.AddModelError("firstname", "Ecrire une adresse mail");
+                ModelState.AddModelError("firstname", "Ecrire un prénom");
             }
             // Vérification que le champs mail n'est pas null, vide ou identique au mail d'un autre client
             if (!String.IsNullOrEmpty(customerToAdd.mail))
@@ -289,5 +289,34 @@ namespace Agenda.Controllers
         //    }
         //    base.Dispose(disposing);
         //}
+        //[ActionName="ListCustomers"]
+        //public ActionResult SearchBar()
+        //{
+        //    var cus = Request.Form("searchBar");
+        //    var request = "SELECT [idCustomer], [lastname], [firstname], [mail], [phoneNumber], [budget], [subject] " +
+        //        "FROM [dbo].[customers] " +
+        //        "WHERE [lastname] =" + cus;
+        //    var searchCus = db.customers.SqlQuery(request);
+        //    return View(searchCus);
+        //}
+
+        [HttpGet, ActionName("ListCustomers")]
+        public ActionResult SearchBar(string option, string search)
+        {
+            if (option == "Subject")
+            {
+                //return View(db.customers.Where(x => x.subject == search || search == null).ToList());
+                return View(db.customers.Where(x => x.subject.StartsWith(search) || search == null).ToList());
+            }
+            else if (option == "FirstName")
+            {
+                //return View(db.customers.Where(x => x.firstname == search || search == null).ToList());
+                return View(db.customers.Where(x => x.firstname.StartsWith(search) || search == null).ToList());
+            }
+            else
+            {
+                return View(db.customers.Where(x => x.lastname.StartsWith(search) || search == null).ToList());
+            }
+        }
     }
 }

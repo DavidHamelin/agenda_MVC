@@ -1,0 +1,55 @@
+﻿
+@model IEnumerable<Agenda.Models.appointements>
+@{
+    ViewBag.Title = "_listAppointements";
+}
+
+<div id="rdvToShow" hidden>
+    <button id="rdvHide" type="button" class="btn btn-default" hidden>- Réduire la liste</button>
+    <h2>Liste des RDV</h2>
+    <table class="table">
+        <tr>
+            <th>Date/Heure</th>
+            <th>Courtier</th>
+            <th>Client</th>
+            <th> </th>
+            <th> </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td> @Html.DisplayFor(modelItem => item.dateHour) </td>
+            <td> @Html.DisplayFor(modelItem => item.brokers.firstname) @Html.DisplayFor(modelItem => item.brokers.lastname) </td>
+            <td> @Html.DisplayFor(modelItem => item.customers.firstname) @Html.DisplayFor(modelItem => item.customers.lastname) </td>
+            <td> @Html.ActionLink("Voir +", "detailsAppointement", "Appointements", new { id = item.idAppointement }, new { @class = "btn btn-default" }) </td>
+            <td>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@item.idAppointement">
+                X
+            </button>
+            </td>
+        </tr>}
+    </table>
+</div>
+<!-- Modal -->
+@foreach (var item in Model)
+{
+    <div class="modal fade" id="@item.idAppointement" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Supprimer un RDV</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-danger h4">
+                    ATTENTION !<br />
+                    Êtes-vous sûr(e) de vouloir supprimer définitivement ce RDV ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    @Html.ActionLink("Supprimer", "DeleteRdvConfirm", "Appointements", new { id = item.idAppointement }, new { @class = "btn btn-danger" })
+                </div>
+            </div>
+        </div>
+    </div>}
