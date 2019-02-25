@@ -15,15 +15,9 @@ namespace Agenda.Controllers
         public ActionResult Index()
         {
             var appointements = db.appointements.Include(a => a.brokers).Include(a => a.customers);
-            if (appointements != null)
-            {
-                return View(appointements.ToList());
-            }
-            else
-            {
-                //ModelState.AddModelError("appointements", "Aucun rendez-vous n'a été ajouté");
-                return View("Error");
-            }
+            //var appointements = db.appointements.Include("brokers").Include("customers");
+            return View(appointements.ToList());
+            // return View("_listAppointements");
         }
 
         public ActionResult About()

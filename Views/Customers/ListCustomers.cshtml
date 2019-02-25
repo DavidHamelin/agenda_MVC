@@ -1,21 +1,40 @@
-﻿@model IEnumerable<Agenda.Models.customers>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<Agenda.Models.customers>
+
+@*@model IEnumerable<Agenda.Models.customers>*@
 @{
     ViewBag.Title = "ListCustomers";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Liste des Clients</h2>
+@Html.ActionLink("Ajouter un Client", "AddCustomer", "Customers", new { area = "" }, new { @class = "btn btn-default" })
 <form method="get" action="#" id="searchBar" name="searchBar">
-    <p> @Html.TextBox("search") <input type="submit" name="submit" value="Rechercher" /> </p>
-    <p> <label for="searchBar">Trier par :</label> </p>
-    <p> @Html.RadioButton("option", "Name") <text>Nom</text> </p>
-    <p> @Html.RadioButton("option", "FirstName") <text>Prénom</text> </p>
-    <p> @Html.RadioButton("option", "Subject") <text>Sujet</text> </p>
+    <input type="text" id="search" name="search" value="" @*onkeyup="pickSearching()"*@ autofocus/>
+    @*<input type="text" id="result" name="result" value=""/>*@
+    @*@Html.TextBox("search", null, new { @id = "search"})*@ <input type="submit" name="submit" id="submit" value="Rechercher" />
+    <fieldset>
+        <label>Trier par :</label>
+        @Html.RadioButton("option", "Nom", new { @checked = "checked" }) <text>Nom</text>
+        @Html.RadioButton("option", "Prenom") <text>Prénom</text>
+        @Html.RadioButton("option", "Sujet") <text>Sujet</text>
+    </fieldset>
 </form>
+
 <table class="table tabCustomer">
     <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
+        <th>
+            @Html.ActionLink("Nom", "ListCustomers", new { sort = ViewBag.SortByName,
+           option = Request.QueryString["option"],
+           search = Request.QueryString["search"] }, new { @title = "Cliquez pour trier"}) *
+        </th>
+        <th>
+            @Html.ActionLink("Prenom", "ListCustomers", new { sort = ViewBag.SortByFirstName,
+           option = Request.QueryString["option"],
+           search = Request.QueryString["search"] }, new { @title = "Cliquez pour trier" }) *
+        </th>
         <th>Adresse Mail</th>
         <th>Numéro de Téléphone</th>
         <th>Budget</th>
@@ -23,23 +42,31 @@
         <th></th>
         <th></th>
     </tr>
-
-    @foreach (var item in Model)
+    @if (Model.Count() == 0)
     {
         <tr>
-            <td> @Html.DisplayFor(modelItem => item.lastname) </td>
-            <td> @Html.DisplayFor(modelItem => item.firstname) </td>
-            <td> @Html.DisplayFor(modelItem => item.mail) </td>
-            <td> @Html.DisplayFor(modelItem => item.phoneNumber) </td>
-            <td> @Html.DisplayFor(modelItem => item.budget) </td>
-            <td> @Html.DisplayFor(modelItem => item.subject) </td>
-            <td> @Html.ActionLink("Profil", "profilCustomer", new { id = item.idCustomer }, new { @class = "btn btn-default" }) </td>
-            <td>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@item.idCustomer">
-                    X
-                </button>
-            </td>
-        </tr>}
+            <td colspan="8" class="text-danger"> Oups... Aucun élément ne correspond à cette recherche ! </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr class="tableFilter">
+                <td> @Html.DisplayFor(modelItem => item.lastname) </td>
+                <td> @Html.DisplayFor(modelItem => item.firstname) </td>
+                <td> @Html.DisplayFor(modelItem => item.mail) </td>
+                <td> @Html.DisplayFor(modelItem => item.phoneNumber) </td>
+                <td> @Html.DisplayFor(modelItem => item.budget) </td>
+                <td> @Html.DisplayFor(modelItem => item.subject) </td>
+                <td> @Html.ActionLink("Profil", "profilCustomer", new { id = item.idCustomer }, new { @class = "btn btn-default" }) </td>
+                <td>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@item.idCustomer">
+                        X
+                    </button>
+                </td>
+            </tr>}
+    }
 </table>
 <!--Autre façon de supprimer avec script : onclick = "return confirm('Etes vous sûr de vouloir supprimer ?')"-->
 <!-- Modal -->
@@ -65,4 +92,10 @@
             </div>
         </div>
     </div>}
-@Html.ActionLink("Ajouter un Client", "AddCustomer", "Customers", new { area = "" }, new { @class = "btn btn-default" })
+
+
+@Html.PagedListPager(Model, pageNumber => Url.Action("ListCustomers",new{ pageNumber,
+    option = Request.QueryString["option"],
+    search = Request.QueryString["search"],
+    sort = Request.QueryString["sort"]
+}))

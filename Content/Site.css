@@ -18,11 +18,10 @@ select,
 textarea {
     max-width: 280px;
 }
-
 /* Design des pages  */
 body {
     padding-top: 50px;
-    /*padding-bottom: 20px;*/
+    padding-bottom: 20px;
     display: flex;
     margin: auto;
     flex-direction: column;
@@ -49,17 +48,27 @@ article em
 {
     font-style: italic;
 }
-/* Date d'aujourd'hui dans l'index */
-#todayDate {
-    font-family: 'Lucida Console';
+/* Date et heure d'aujourd'hui dans l'index */
+#dateTimeBlock p:first-child
+{
+    margin-bottom: 0;
+}
+#todayDate, #todayHour {
+    font-family: 'Lucida Console', sans-serif;
     font-weight: bold;
+    font-size: 1.2em;
+}
+#todayDate {
     font-size: 2em;
 }
-
+#todayHour {
+    margin-left: 1%;
+}
 /*Image page d'accueil*/
 img {
     height: 100%;
     max-height: 590px;
+    border: 6px inset rgba(0, 0, 0, 0.20);
 }
 /* Titre, date et texte d'accueil */
 section
@@ -72,7 +81,11 @@ section
     text-align: left;
     font-size: 1.5em;
 }
- /*Marge button*/ 
+#dateTimeBlock
+{
+    margin: 5% 0;
+}
+/*Marge button*/
 .btn {
     margin-bottom: 3%;
 }
@@ -107,9 +120,9 @@ th
 tr:nth-child(even) {
     background: #eeeeee; /*gris clair*/
 }
-td
-{
+td {
     border: 1px solid white;
+    width: auto;
 }
 /* Design des Formulaires */
 form {
@@ -121,8 +134,7 @@ form {
     justify-content: center;
 }
 /* Design des formulaires de modification */
-#formToShow
-{
+#formToShow {
     margin: 2%;
     padding: 2%;
     border: 3px dashed white;
@@ -136,16 +148,12 @@ form {
     align-items: baseline;
     /*margin-right: 30%;*/
 }
-#searchBar p 
-{
-    margin-right: 1%;
+.tabCustomer th a {
+    color: white;
 }
-#searchBar p:first-child
-{
-    display: flex;
-    margin-right: 1%;
+fieldset {
+    margin: 0 1%;
 }
-
 /* Pied de page */
 footer p {
     text-align: right;

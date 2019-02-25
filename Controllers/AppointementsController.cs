@@ -40,42 +40,31 @@ namespace Agenda.Controllers
             var date = Request.Form["dateRdv"]; // récuperer date 
             var hour = Request.Form["hourRdv"]; // récupérer heure
             var dateAndHour = date + " " + hour; // Concaténation
-            rdvToAdd.dateHour = Convert.ToDateTime(dateAndHour);
-            // Conversion en Datetime
-            // Faire en sorte qu'un courtier n'ai pas 2 rendez-vous en même temps (même jour et même heure)
-            //var isAlreadyUsed = db.appointements.Where(rdv => (rdv.dateHour == rdvToAdd.dateHour) && (rdv.idBroker == rdvToAdd.idBroker));
-            // Vérifie si ce rdv est déjà utilisé
-            //if (rdvToAdd == isAlreadyUsed)
-            //{
-            //ModelState.AddModelError("datehour", "Un client existant porte cette adresse mail");
-            //return View("Error");
-            //}
-            //vérification que le champ datehour n'est pas null
-            //if (rdvToAdd.dateHour == null)
-            //{
-            //    ModelState.AddModelError("dateHour", "Ecrire une date");
-            //}
-
-            ViewBag.idBroker = new SelectList(db.brokers.Select(bro => new { idBro = bro.idBroker, fullname = bro.firstname + " " + bro.lastname }), "idBro", "fullname", rdvToAdd.idBroker);
-            ViewBag.idCustomer = new SelectList(db.customers.Select(cus => new { idCus = cus.idCustomer, fullname = cus.firstname + " " + cus.lastname }), "idCus", "fullname", rdvToAdd.idCustomer);
-
-            var isAlreadyUsed = db.appointements.Where(rdv => rdv.idBroker == rdvToAdd.idBroker && rdv.dateHour == rdvToAdd.dateHour || rdv.idCustomer == rdvToAdd.idCustomer && rdv.dateHour == rdvToAdd.dateHour).SingleOrDefault();
-            if (isAlreadyUsed != null)
+            rdvToAdd.dateHour = Convert.ToDateTime(dateAndHour); // Conversion en Datetime
+            // Vérifier si les champs date et time sont vides
+            if (String.IsNullOrEmpty(date))
             {
-                ModelState.AddModelError("dateHour", "/!\\ Un RDV existe déja avec ce courtier à cette plage horaire /!\\");
-                return View(rdvToAdd);
+                ModelState.AddModelError("dateHour", "/!\\ Date manquante /!\\");
             }
-            //return View(rdvToAdd);
-            
-
-            //var isAlreadyUsed = db.appointements.Where(rdv => rdv.dateHour == rdvToAdd.dateHour);
-            //foreach (appointements item in isAlreadyUsed)
+            if (String.IsNullOrEmpty(hour))
+            {
+                ModelState.AddModelError("dateHour", "/!\\ Heure manquante /!\\");
+            }
+            //if (String.IsNullOrEmpty(dateAndHour))
             //{
-            //    if (item.idBroker == rdvToAdd.idBroker)
-            //    {
-            //        ModelState.AddModelError("idCustomer", "Un rdv est déja pris avec ce courtier à cette date");
-            //    }
+            //    ModelState.AddModelError("dateHour", "/!\\ Date et Heure manquante /!\\");
             //}
+            // Faire en sorte qu'un courtier n'ai pas 2 rendez-vous en même temps (même jour et même heure)
+            var brokerAlreadyUsed = db.appointements.Where(rdv => rdv.idBroker == rdvToAdd.idBroker && rdv.dateHour == rdvToAdd.dateHour).SingleOrDefault();
+            if (brokerAlreadyUsed != null)
+            {
+                ModelState.AddModelError("dateHour", "/!\\ Un RDV existe déja avec ce Courtier à cette plage horaire /!\\");
+            }
+            var customerAlreadyUsed = db.appointements.Where(rdv => rdv.idCustomer == rdvToAdd.idCustomer && rdv.dateHour == rdvToAdd.dateHour).SingleOrDefault();
+            if (customerAlreadyUsed != null)
+            {
+                ModelState.AddModelError("dateHour", "/!\\ Un RDV existe déja avec ce Client à cette plage horaire /!\\");
+            }
             if (ModelState.IsValid)
             {
                 db.appointements.Add(rdvToAdd);
@@ -83,7 +72,7 @@ namespace Agenda.Controllers
                 return RedirectToAction("SuccessAddAppointement");
             }
             ViewBag.idBroker = new SelectList(db.brokers, "idBroker", "lastname", rdvToAdd.idBroker);
-            ViewBag.idCustomers = new SelectList(db.customers, "idCustomer", "lastname", rdvToAdd.idCustomer);
+            ViewBag.idCustomer = new SelectList(db.customers, "idCustomer", "lastname", rdvToAdd.idCustomer);
             return View("AddAppointement");
         }
         // Page de succès
@@ -99,7 +88,7 @@ namespace Agenda.Controllers
             appointements idAppointement = db.appointements.Find(id);
             if (idAppointement == null || id == null)
             {
-                return HttpNotFound(); // renvoyer vers page d'erreur
+                return RedirectToAction("Error", "Shared"); // renvoyer vers page d'erreur
             }
             return View(idAppointement);
         }

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Net;
 using System.Data.Entity;
+using PagedList;
 
 namespace Agenda.Controllers
 {
@@ -131,7 +132,7 @@ namespace Agenda.Controllers
         {
             var request = "SELECT [idCustomer], [lastname], [firstname], [mail], [phoneNumber], [budget], [subject] " +
                 "FROM [dbo].[customers] " +
-                "ORDER BY [lastname] DESC";
+                "ORDER BY [lastname] ";
             var listCustomers = db.customers.SqlQuery(request);
             //ViewData.Model = db.customers.SqlQuery(request);
             //return View("ListCustomers");
@@ -152,7 +153,7 @@ namespace Agenda.Controllers
             customers customers = db.customers.Find(id);
             if (customers == null || id == null)
             {
-                return HttpNotFound(); // renvoyer vers page d'erreur
+                return RedirectToAction("Error", "Shared"); // renvoyer vers page d'erreur
             }
             return View(customers);
         }
@@ -253,25 +254,22 @@ namespace Agenda.Controllers
                 return View(customerToEdit); //réaffichage du formulaire
             }
         }
-        // GET: Delete
-        //public ActionResult ListCustomers(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    customers customersupp = db.customers.Find(id);
-        //    if (customersupp == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(customersupp);
-        //}
+        
         // POST: Delete
         //[HttpPost, ActionName("ListCustomers")]
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteCustomerConfirm(int id)
         {
+            // Methode pour supprimer un client qui a des rdv 
+            //if (id != null) {
+            //    List<appointements> list = db.appointements.Where(d => d.idCustomer == id).ToList();
+            //    db.appointements.RemoveRange(list);
+            //    db.SaveChanges();
+            //    db.customers.Remove(db.customers.Find(id));
+            //    db.SaveChanges();
+            //}
+            //return RedirectToAction("Index");
+
             customers customerDel = db.customers.Find(id);
             db.customers.Remove(customerDel);
             db.SaveChanges();
@@ -289,34 +287,69 @@ namespace Agenda.Controllers
         //    }
         //    base.Dispose(disposing);
         //}
-        //[ActionName="ListCustomers"]
-        //public ActionResult SearchBar()
-        //{
-        //    var cus = Request.Form("searchBar");
-        //    var request = "SELECT [idCustomer], [lastname], [firstname], [mail], [phoneNumber], [budget], [subject] " +
-        //        "FROM [dbo].[customers] " +
-        //        "WHERE [lastname] =" + cus;
-        //    var searchCus = db.customers.SqlQuery(request);
-        //    return View(searchCus);
-        //}
 
         [HttpGet, ActionName("ListCustomers")]
-        public ActionResult SearchBar(string option, string search)
+        public ActionResult SearchBar(string option, string search, int? pageNumber, string sort)
         {
-            if (option == "Subject")
-            {
-                //return View(db.customers.Where(x => x.subject == search || search == null).ToList());
-                return View(db.customers.Where(x => x.subject.StartsWith(search) || search == null).ToList());
-            }
-            else if (option == "FirstName")
-            {
-                //return View(db.customers.Where(x => x.firstname == search || search == null).ToList());
-                return View(db.customers.Where(x => x.firstname.StartsWith(search) || search == null).ToList());
-            }
-            else
-            {
-                return View(db.customers.Where(x => x.lastname.StartsWith(search) || search == null).ToList());
-            }
+            //Correction :
+            //var request = "SELECT [idCustomer], [lastname], [firstname], [mail], [phoneNumber], [budget], [subject] " +
+            //        "FROM [dbo].[customers] " +
+            //        "ORDER BY [lastname] ASC";
+            //var filterSubject = db.customers.SqlQuery(request);
+            //if (option == "Subject")
+            //{
+            //    //return View(db.customers.Where(x => x.subject == search || search == null).ToList());
+            //    return View(db.customers.Where(x => x.subject.StartsWith(search)).ToList().ToPagedList(pageNumber ?? 1, 3));
+            //}
+            //else if (option == "FirstName")
+            //{
+            //    return View(db.customers.Where(x => x.firstname.StartsWith(search) || search == null).ToList().ToPagedList(pageNumber ?? 1, 3));
+            //}
+            //else if (option == "Name")
+            //{
+            //    return View(db.customers.Where(x => x.lastname.StartsWith(search) || search == null).ToList().ToPagedList(pageNumber ?? 1, 3));
+            //}
+            //else
+            //{
+            //    return View(filterSubject.ToPagedList(pageNumber ?? 1, 4)); // deuxieme nombre = nombre de ligne à afficher dans le tableau
+            //}
+
+            //if the sort parameter is null or empty then we are initializing the value as descending name  
+            ViewBag.SortByName = string.IsNullOrEmpty(sort) ? "descending name" : "";
+        //if the sort value is gender then we are initializing the value as descending gender  
+        ViewBag.SortByFirstName = sort == "Prenom" ? "descending firstname" : "Prenom";
+        //here we are converting the db.Students to AsQueryable so that we can invoke all the extension methods on variable records.  
+        var records = db.customers.AsQueryable();
+        if (option == "Sujet")
+        {
+            records = records.Where(x => x.subject.Contains(search) || search == null);
         }
+        else if (option == "Prenom")
+        {
+            records = records.Where(x => x.firstname.StartsWith(search) || search == null);
+        }
+        else
+        {
+            records = records.Where(x => x.lastname.StartsWith(search) || search == null);
+        }
+
+        switch (sort)
+        {
+            case "descending name":
+                records = records.OrderByDescending(x => x.lastname);
+                break;
+            case "descending firstname":
+                records = records.OrderByDescending(x => x.firstname);
+                break;
+            case "Prenom":
+                records = records.OrderBy(x => x.firstname);
+                break;
+            default:
+                records = records.OrderBy(x => x.lastname);
+                break;
+        }
+        return View(records.ToPagedList(pageNumber ?? 1, 3));
+        }
+        
     }
 }

@@ -104,7 +104,7 @@ namespace Agenda.Controllers
             brokers brokerById = db.brokers.Find(id);
             if (brokerById == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Error", "Shared");
             }
             return View(brokerById);
         }

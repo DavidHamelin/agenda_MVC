@@ -90,3 +90,8 @@ C:\Users\Dell\source\repos\MVC_Agenda\Agenda\bin\EntityFramework.SqlServer.dll
 C:\Users\Dell\source\repos\MVC_Agenda\Agenda\bin\EntityFramework.xml
 C:\Users\Dell\source\repos\MVC_Agenda\Agenda\bin\EntityFramework.SqlServer.xml
 C:\Users\Dell\source\repos\MVC_Agenda\Agenda\bin\fr\EntityFramework.resources.dll
+C:\Users\Dell\source\repos\MVC_Agenda\Agenda\bin\PagedList.dll
+C:\Users\Dell\source\repos\MVC_Agenda\Agenda\bin\PagedList.Mvc.dll
+C:\Users\Dell\source\repos\MVC_Agenda\Agenda\bin\PagedList.xml
+C:\Users\Dell\source\repos\MVC_Agenda\Agenda\bin\PagedList.Mvc.xml
+C:\Users\Dell\source\repos\MVC_Agenda\Agenda\bin\fr\EntityFramework.SqlServer.resources.dll

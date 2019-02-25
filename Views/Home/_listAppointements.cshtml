@@ -17,19 +17,20 @@
         </tr>
         @foreach (var item in Model)
         {
-        <tr>
-            <td> @Html.DisplayFor(modelItem => item.dateHour) </td>
-            <td> @Html.DisplayFor(modelItem => item.brokers.firstname) @Html.DisplayFor(modelItem => item.brokers.lastname) </td>
-            <td> @Html.DisplayFor(modelItem => item.customers.firstname) @Html.DisplayFor(modelItem => item.customers.lastname) </td>
-            <td> @Html.ActionLink("Voir +", "detailsAppointement", "Appointements", new { id = item.idAppointement }, new { @class = "btn btn-default" }) </td>
-            <td>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@item.idAppointement">
-                X
-            </button>
-            </td>
-        </tr>}
+            <tr>
+                <td> @Html.DisplayFor(modelItem => item.dateHour) </td>
+                <td> @Html.DisplayFor(modelItem => item.brokers.firstname) @Html.DisplayFor(modelItem => item.brokers.lastname) </td>
+                <td> @Html.DisplayFor(modelItem => item.customers.firstname) @Html.DisplayFor(modelItem => item.customers.lastname) </td>
+                <td> @Html.ActionLink("Voir +", "detailsAppointement", "Appointements", new { id = item.idAppointement }, new { @class = "btn btn-default" }) </td>
+                <td>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#@item.idAppointement">
+                        X
+                    </button>
+                </td>
+            </tr>}
     </table>
 </div>
+<!--Autre façon de supprimer avec script : onclick = "return confirm('Etes vous sûr de vouloir supprimer ?')"-->
 <!-- Modal -->
 @foreach (var item in Model)
 {

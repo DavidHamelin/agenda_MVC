@@ -1,6 +1,5 @@
 ﻿@model Agenda.Models.appointements
 
-
 @{
     ViewBag.Title = "AddAppointement";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,22 +17,22 @@
         </div>*@
         <div class="form-group">
             <label for="dateRdv">Votre date de RdV : </label>
-            <input type="date" min="2019-02-19" id="dateRdv" name="dateRdv" required />
+            <input type="date" min="2019-02-19" id="dateRdv" name="dateRdv" required/>
         </div>
         <div class="form-group">
             <label for="hourRdv">Votre heure de RdV :</label>
-            <input type="time" min="08:00" max="20:00" id="hourRdv" name="hourRdv" required />
+            <input type="time" min="08:00" max="20:00" id="hourRdv" name="hourRdv" required/>
         </div>
         @Html.ValidationMessageFor(model => model.dateHour, "", new { @class = "text-danger" })
         <div class="form-group">
             <label for="chooseABroker" class="control-label">Courtier : </label>
-            @Html.DropDownList("idBroker", null, htmlAttributes: new { @class = "form-control" })
-            @*@Html.ValidationMessageFor(model => model.idBroker, "", new { @class = "text-danger" })*@
+            @Html.DropDownList("idBroker", null, htmlAttributes: new { @class = "form-control" }, optionLabel: "Choisissez un courtier")
+            @Html.ValidationMessageFor(model => model.idBroker, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             <label for="chooseACustomer" class="control-label">Client : </label>
-            @Html.DropDownList("idCustomer", null, htmlAttributes: new { @class = "form-control" })
-            @*@Html.ValidationMessageFor(model => model.idCustomer, "", new { @class = "text-danger" })*@
+            @Html.DropDownList("idCustomer", null, htmlAttributes: new { @class = "form-control" }, optionLabel: "Choisissez un client")
+            @Html.ValidationMessageFor(model => model.idCustomer, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             <button class="btn btn-default" type="submit" id="submit" name="submit">Enregistrer</button>
